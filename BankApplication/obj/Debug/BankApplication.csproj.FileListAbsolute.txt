@@ -1,0 +1,7 @@
+c:\users\ajoshi\source\repos\BankApplication\BankApplication\bin\Debug\BankApplication.exe.config
+c:\users\ajoshi\source\repos\BankApplication\BankApplication\bin\Debug\BankApplication.exe
+c:\users\ajoshi\source\repos\BankApplication\BankApplication\bin\Debug\BankApplication.pdb
+c:\users\ajoshi\source\repos\BankApplication\BankApplication\obj\Debug\BankApplication.csprojResolveAssemblyReference.cache
+c:\users\ajoshi\source\repos\BankApplication\BankApplication\obj\Debug\BankApplication.csproj.CoreCompileInputs.cache
+c:\users\ajoshi\source\repos\BankApplication\BankApplication\obj\Debug\BankApplication.exe
+c:\users\ajoshi\source\repos\BankApplication\BankApplication\obj\Debug\BankApplication.pdb
