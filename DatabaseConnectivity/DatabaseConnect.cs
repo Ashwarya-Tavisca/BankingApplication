@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+
+namespace DatabaseConnectivity
+{
+    public class DatabaseConnect
+    {
+         public SqlConnection dbConnect()
+        {
+            SqlConnection conn = null;
+            try
+            {
+                conn = new SqlConnection();
+                conn.ConnectionString = "Data Source = Personal ; Initial Catalog = dbname ; Integrated Security = true";
+                conn.Open();
+                return conn;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return conn;
+            }
+        }
+
+    }
+}

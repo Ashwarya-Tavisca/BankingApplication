@@ -8,111 +8,19 @@ namespace BankApplication
 {
     class Program
     {
-        public static void accountDetails(Account[] obj)
-        {
-            int index = getId(obj);
-            Console.WriteLine("Your Account Id:" + obj[index].setAccountId());
-            Console.WriteLine("Account Holder Name:" + obj[index].setCustomerName());
-            Console.WriteLine("Account Type:" + obj[index].setAccountType());
-            Console.WriteLine("Balance:" + obj[index].setTotalAmount());
-        }
-        public static int getId(Account[] accobject)
-        {
-            Console.WriteLine("Enter the Account Number- ");
-            int accountNumber = int.Parse(Console.ReadLine());
-            int aNo=-1;
-            for (int index = 0; index < accobject.Length; index++)
-            {
-                if (accountNumber == accobject[index].setAccountId())
-                {
-                    aNo = index; 
-                }
-                else
-                {
-                    aNo = -1;
-                    Console.WriteLine("Please enter a valid account!");
-                }
-            }
-            return aNo;
-        }
-        public static void depositAmount(Account[]obj)
-        {
-            int index = getId(accObject);
-            if (index!= -1)
-                {
-                    Console.WriteLine("Enter the amount to be deposited- ");
-                    int depositamount = int.Parse(Console.ReadLine());
-                    accObject[index].SetTotalAmount(depositamount);
-                    Console.WriteLine("Your balance after depositing- ");
-                    Console.WriteLine(accObject[index].setTotalAmount());
-                }
-        }
-        public static void withdraw(Account[] obj)
-        {
-            int index = getId(obj);
-
-            if (obj[index].setAccountType().Equals("Savings") && obj[index].setTotalAmount() < 1000)
-            {
-                Console.WriteLine("Balance is NULL! ");
-                Console.WriteLine("Balance should be greater than 1000. Deposit money!");
-
-            }
-            else if (obj[index].setAccountType().Equals("Current") && obj[index].setTotalAmount() < 0)
-            {
-                Console.WriteLine("Balance is NULL! ");
-                Console.WriteLine("Balance should be greater than 0. Deposit money!");
-            }
-            else if (obj[index].setAccountType().Equals("DMAT") && obj[index].setTotalAmount() < -10000)
-            {
-                Console.WriteLine("Balance cannot be less than -10000. Withdrawl cannot be completed!");
-            }
-            else
-            {
-                Console.WriteLine("Enter Amount To Be Withdrawn from the account- ");
-                int withdrawlAmount = int.Parse(Console.ReadLine());
-                obj[index].SetWithdrawAmount(obj[index].setTotalAmount() - withdrawlAmount);
-                Console.WriteLine("Your balance after withdrawl- ");
-                Console.WriteLine(accObject[index].setTotalAmount());
-
-            }
-        }
-
-
-        public static void calculateInterest(Account[] obj)
-        {
-            int index = getId(obj);
-            float interest = 0.0f;
-            if (obj[index].setAccountType().Equals("Savings"))
-            {
-                interest = (float)((obj[index].setTotalAmount() * 4f) / 100f);
-                Console.WriteLine("Interest- " + interest);
-                Console.WriteLine("After adding interest the amount becomes- " + (obj[index].setTotalAmount() + interest));
-            }
-
-            else if (obj[index].setAccountType().Equals("Current"))
-            {
-                interest = (float)((obj[index].setTotalAmount() * 1f) / 100f);
-                Console.WriteLine("Interest- " + interest);
-                Console.WriteLine("After Interest the amount becomes- " + (obj[index].setTotalAmount() + interest));
-            }
-
-            else if (obj[index].setAccountType().Equals("DMAT"))
-            {
-                Console.WriteLine("Interest is not available on DMAT Account");
-            }
-        }
        
-        static Account[] accObject;
+       
+        static Account accObject;
         static void Main(string[] args)
         {
 
-            int accountId;
-            string customerName, accountType;
-
+            int accountId,accountType ;
+            string customerName;
+            int money;
 
             Console.WriteLine("Enter the number of Accounts- ");
             int accountCount = int.Parse(Console.ReadLine());
-            accObject = new Account[accountCount];
+            accObject = new Account();
             for (int index = 0; index < accountCount; index++)
             {
                 Console.WriteLine("Enter Account Id- ");
@@ -120,13 +28,8 @@ namespace BankApplication
                 Console.WriteLine("Enter Account Holder's Name- ");
                 customerName = Console.ReadLine();
                 Console.WriteLine("Enter Account Type- ");
-                accountType = Console.ReadLine();
-
-
-                accObject[index] = new Account();
-                accObject[index].getAccountId(accountId);
-                accObject[index].getCustomerName(customerName);
-                accObject[index].getAccountType(accountType);
+                accountType = int.Parse(Console.ReadLine());
+                accObject.add(accountId, customerName,accountType);
 
 
             }
@@ -139,24 +42,31 @@ namespace BankApplication
                 switch (choice)
                 {
                     case 1:
-                        accountDetails(accObject);
+                        accObject.Show();
                         break;
                     case 2:
-                        int accountNumber = getId(accObject);
-                        Console.WriteLine("Your Account Id:" + accObject[accountNumber].setAccountId());
-                        Console.WriteLine("Account Holder's Name:" + accObject[accountNumber].setCustomerName());
-                        Console.WriteLine("Account Type:" + accObject[accountNumber].setAccountType());
-                        Console.WriteLine("Account amount:" + accObject[accountNumber].setTotalAmount());
+                        int accountNumber = int.Parse(Console.ReadLine());
+                        accObject.search(accountNumber);
                         break;
 
                     case 3:
-                        depositAmount(accObject);
+                        Console.WriteLine("Enter your account number:-");
+                        accountNumber = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter amount:-");
+                        money = Convert.ToInt32(Console.ReadLine());
+                        accObject.deposit(accountNumber,money);
                         break;
                     case 4:
-                        withdraw(accObject);
+                        Console.WriteLine("Enter your account number:-");
+                        accountNumber = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter amount:-");
+                        money = Convert.ToInt32(Console.ReadLine());
+                        accObject.withdrawl(accountNumber, money);
                         break;
                     case 5:
-                        calculateInterest(accObject);
+                        Console.WriteLine("Enter your account number:-");
+                        accountNumber = Convert.ToInt32(Console.ReadLine());
+                        accObject.Interest(accountNumber);
                         break;
                     default:
                         Console.WriteLine("Please enter correct choice");
