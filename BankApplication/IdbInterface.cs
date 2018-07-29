@@ -8,10 +8,10 @@ namespace BankApplication
 {
     interface IdbInterface
     {
-         void add(int clientId, string clientName, int accountType);
+         void Add(int clientId, string clientName, int accountType);
          void Show();
-         void search(int clientId);
-         void deposit(int clientId, int dp);
-         void withdrawl(int clientId, int money)
+         void Search(int clientId);
+         void Deposit(int clientId, int dp);
+        void Withdrawl(int clientId, int money);
     }
 }

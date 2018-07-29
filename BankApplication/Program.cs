@@ -27,9 +27,10 @@ namespace BankApplication
                 accountId = int.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Account Holder's Name- ");
                 customerName = Console.ReadLine();
-                Console.WriteLine("Enter Account Type- ");
+                Console.WriteLine("Enter Account Type ");
+                Console.WriteLine("Press 1 for Savings,2 for Current and 3 for DMAT account - ");
                 accountType = int.Parse(Console.ReadLine());
-                accObject.add(accountId, customerName,accountType);
+                accObject.Add(accountId, customerName,accountType);
 
 
             }
@@ -45,26 +46,27 @@ namespace BankApplication
                         accObject.Show();
                         break;
                     case 2:
+                        Console.WriteLine("Enter Customer Id");
                         int accountNumber = int.Parse(Console.ReadLine());
-                        accObject.search(accountNumber);
+                        accObject.Search(accountNumber);
                         break;
 
                     case 3:
-                        Console.WriteLine("Enter your account number:-");
+                        Console.WriteLine("Enter your account number :- ");
                         accountNumber = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Enter amount:-");
+                        Console.WriteLine("Enter amount :- ");
                         money = Convert.ToInt32(Console.ReadLine());
-                        accObject.deposit(accountNumber,money);
+                        accObject.Deposit(accountNumber,money);
                         break;
                     case 4:
-                        Console.WriteLine("Enter your account number:-");
+                        Console.WriteLine("Enter your account number :- ");
                         accountNumber = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Enter amount:-");
                         money = Convert.ToInt32(Console.ReadLine());
-                        accObject.withdrawl(accountNumber, money);
+                        accObject.Withdrawl(accountNumber, money);
                         break;
                     case 5:
-                        Console.WriteLine("Enter your account number:-");
+                        Console.WriteLine("Enter your account number :- ");
                         accountNumber = Convert.ToInt32(Console.ReadLine());
                         accObject.Interest(accountNumber);
                         break;

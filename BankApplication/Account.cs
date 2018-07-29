@@ -11,10 +11,10 @@ namespace BankApplication
     class Account: IdbInterface
     {
         static DatabaseConnect obj = new DatabaseConnect();
-        public void add(int clientId , string clientName , int accountType)
+        public void Add(int clientId , string clientName , int accountType)
         {
             SqlConnection conn = obj.dbConnect();
-            string dbQuery = "Insert into clients values("+clientId+ ","+clientName+","+accountType+", "+ 0 +")";
+            string dbQuery = "Insert into client(clientid,clientname,acctype,money) values("+clientId+ ",'"+clientName+"',"+accountType+", "+ 0 +")";
             SqlCommand cmmnd = new SqlCommand(dbQuery, conn);
             cmmnd.ExecuteNonQuery();
             conn.Close();
@@ -22,10 +22,10 @@ namespace BankApplication
         public void Show()
         {
             SqlConnection conn = obj.dbConnect();
-            string dbQuery = "select * from clients");
+            string dbQuery = "select * from client";
             SqlCommand cmmnd = new SqlCommand(dbQuery, conn);
             SqlDataReader datareader = cmmnd.ExecuteReader();  
-            while(datareader.NextResult())
+            while(datareader.Read())
             {
                 Console.WriteLine("Clientid:" + datareader.GetValue(0));
                 Console.WriteLine("Clientname:" + datareader.GetValue(1));
@@ -34,13 +34,13 @@ namespace BankApplication
             }
             conn.Close();
         }
-        public void search(int clientId)
+        public void Search(int clientId)
         {
             SqlConnection conn = obj.dbConnect();
-            string dbQuery = "select * from clients where id=" + clientId);
+            string dbQuery = "select * from client where clientid=" + clientId;
             SqlCommand cmmnd = new SqlCommand(dbQuery, conn);
             SqlDataReader datareader = cmmnd.ExecuteReader();
-            if(datareader.NextResult())
+            if(datareader.Read())
             {
                 Console.WriteLine("Clientid:" + datareader.GetValue(0));
                 Console.WriteLine("Clientname:" + datareader.GetValue(1));
@@ -49,53 +49,69 @@ namespace BankApplication
             }
             conn.Close();
         }
-        public void deposit(int clientId,int dp)
+        public void Deposit(int clientId,int dp)
         {
             SqlConnection conn = obj.dbConnect();
-            string dbQuery = "update users set balance=balance+"+ dp +" where id="+ clientId ;
+            string dbQuery = "update client set money=money+"+ dp +" where clientid="+ clientId ;
             SqlCommand cmmnd = new SqlCommand(dbQuery, conn);
             cmmnd.ExecuteNonQuery();
             conn.Close();
         }
-        public void withdrawl(int clientId, int money)
+        public void Withdrawl(int clientId, int money)
         {
-            SqlConnection conn = obj.dbConnect();
-            string dbQuery = "select * from clients where id=" + clientId + "";
-            SqlCommand cmmnd = new SqlCommand(dbQuery, conn);
-            SqlDataReader datareader = cmmnd.ExecuteReader();
-            int flag = 0;
-            if (datareader.NextResult())
-            {
-                if ((int)datareader.GetValue(2) == 1 && (int)datareader.GetValue(3) < 1000)
-                    flag = 0;
-                else if ((int)datareader.GetValue(2) == 2 && (int)datareader.GetValue(3) < 0)
-                    flag = 0;
-                else if ((int)datareader.GetValue(2) == 3 && (int)datareader.GetValue(3) < -10000)
-                    flag = 0;
-                else
-                    flag = 1;
-            }
-            conn.Close();
-
-            if (flag == 0)
-                Console.WriteLine("Money cannot be withdrawn");
+            int bal = Balance(clientId);
+            int accType = AccType(clientId);
+            if(accType==1&&bal<1000)
+                Console.WriteLine("Insufficient Balance");
+            else if (accType == 2 && bal < 0)
+                Console.WriteLine("Insufficient Balance");
+            else if (accType == 3 && bal < -10000)
+                Console.WriteLine("Insufficient Balance");
             else
             {
-                conn = obj.dbConnect();
-                string query1 = "update users set balance=balance-" + money + " where id=" + clientId;
-                SqlCommand commd = new SqlCommand(query1, conn);
+                SqlConnection conn = obj.dbConnect();
+                string query = "update client set money=money-" + money + " where clientid=" + clientId;
+                SqlCommand cmmnd = new SqlCommand(query, conn);
                 cmmnd.ExecuteNonQuery();
                 conn.Close();
             }
+        }
+        public static int Balance(int clientid)
+        {
+            int sum = 0;
+            SqlConnection conn = obj.dbConnect();
+            string dbQuery = "select * from client where clientid=" + clientid;
+            SqlCommand cmmnd = new SqlCommand(dbQuery, conn);
+            SqlDataReader datareader = cmmnd.ExecuteReader();
+            if (datareader.Read())
+            {
+                sum=((int)datareader.GetValue(3));
+            }
+            conn.Close();
+            return sum;
+        }
+        public static int AccType(int clientid)
+        {
+            int type=-1;
+            SqlConnection conn = obj.dbConnect();
+            string dbQuery = "select * from client where clientid=" + clientid;
+            SqlCommand cmmnd = new SqlCommand(dbQuery, conn);
+            SqlDataReader datareader = cmmnd.ExecuteReader();
+            if (datareader.Read())
+            {
+                type = ((int)datareader.GetValue(2));
+            }
+            conn.Close();
+            return type;
         }
         public void Interest(int clientId)
         {
             int result = 0;
             SqlConnection conn = obj.dbConnect();
-            string dbQuery = "select * from clients where id="+ clientId +"";
+            string dbQuery = "select * from client where clientid="+ clientId;
             SqlCommand cmmnd = new SqlCommand(dbQuery, conn);
             SqlDataReader datareader = cmmnd.ExecuteReader();
-            if (datareader.NextResult())
+            if (datareader.Read())
             {
                 int balance = (int)datareader.GetValue(3);
                 int account = (int)datareader.GetValue(2);

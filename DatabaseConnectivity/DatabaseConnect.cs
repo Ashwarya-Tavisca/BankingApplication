@@ -15,7 +15,7 @@ namespace DatabaseConnectivity
             try
             {
                 conn = new SqlConnection();
-                conn.ConnectionString = "Data Source = Personal ; Initial Catalog = dbname ; Integrated Security = true";
+                conn.ConnectionString = "Data Source = TAVDESK045 ; Initial Catalog = BankingDatabase ; Integrated Security = true";
                 conn.Open();
                 return conn;
             }

@@ -1,0 +1,6 @@
+C:\Users\ajoshi\BankingApplication\DatabaseConnectivity\bin\Debug\DatabaseConnectivity.dll
+C:\Users\ajoshi\BankingApplication\DatabaseConnectivity\bin\Debug\DatabaseConnectivity.pdb
+C:\Users\ajoshi\BankingApplication\DatabaseConnectivity\obj\Debug\DatabaseConnectivity.csprojResolveAssemblyReference.cache
+C:\Users\ajoshi\BankingApplication\DatabaseConnectivity\obj\Debug\DatabaseConnectivity.csproj.CoreCompileInputs.cache
+C:\Users\ajoshi\BankingApplication\DatabaseConnectivity\obj\Debug\DatabaseConnectivity.dll
+C:\Users\ajoshi\BankingApplication\DatabaseConnectivity\obj\Debug\DatabaseConnectivity.pdb
