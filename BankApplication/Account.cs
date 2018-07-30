@@ -11,7 +11,15 @@ namespace BankApplication
     class Account
     {
 
-        static DatabaseConnect obj = new DatabaseConnect();
+        IDbInterface obj;
+        public Account()
+        {
+            BuildDbObject();
+        }
+        public void BuildDbObject()
+        {
+            obj = DatabaseObjectFactory.GetConnectivityObject();
+        }
         
         public void Add(int clientId, string clientName, int accountType)
         {
@@ -35,7 +43,7 @@ namespace BankApplication
         }
         public void Interest(int clientId)
         {
-            Interest(clientId);
+            obj.Interest(clientId);
         }
 
     }

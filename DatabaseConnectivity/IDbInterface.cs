@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseConnectivity
 {
-    interface IDbInterface
+    public interface IDbInterface
     {
         void Add(int clientId, string clientName, int accountType);
         void Show();
